@@ -1,0 +1,33 @@
+.grid {
+  display: grid;
+  width: 1600px;
+  margin: 0 auto;
+  grid-template-columns: 25fr 40fr 35fr;
+  grid-template-rows: 50fr 50fr;
+}
+
+.row-full {
+  margin-top: 15px;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+/* for the list  */
+.column-a {
+  background-color: aqua;
+  grid-column-start: 1;
+  grid-column-end: 1;
+
+}
+ /* for images in center  */
+.column-b {
+  background-color: rgb(24, 115, 169);
+  grid-column-start: 2;
+  grid-column-end: 2;
+
+}
+ /* for the chart section  */
+.column-c {
+  background-color: rgb(83, 250, 203);
+  grid-column-start: 3;
+  grid-column-end: 3;
+}
