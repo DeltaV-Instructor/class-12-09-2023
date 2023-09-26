@@ -16,6 +16,8 @@ console.log(leftPizzaImage, rightPizzaImage);
 let leftPizzaOnThePage;
 let rightPizzaOnThePage;
 
+let resultsList = document.getElementById('resultsList');
+let chartRestults = document.getElementById('chartResults');
 
 
 
@@ -135,6 +137,7 @@ function handleChartResults(){
 //html element. method (event looking for,  name of our() that handles the event)
 pizzaImageSectionTag.addEventListener('click', handleClickOnPizza);
 //add event listener for our button click
+resultsList.addEventListener('click', )
 //add event listener for our chartResults
 //call the constructor function to create out pizza objects
 //  PizzaPicture = function(pizzaName, imageSrc){
