@@ -54,12 +54,15 @@ console.log('array? with pizza objects?',allPizzas);
   display our random images we are going random number from our pizza objects array
   we can then update the "src" in the html to update the image that we are seeing on the page
   add some logic for images that we just used array to store so we dont select those images again for the next round.
-  lastly I want to count total clicks if statement when reach the end of 5 clicks 
-  remove the event listener so the user can not click any more. 
+  lastly I want to count total clicks if statement when reach the end of 5 clicks
+  remove the event listener so the user can not click any more.
 
  *  */
 function handleClickOnPizza(event){
- console.log('from hanlde image click', event);
+ console.log('from hanlde image click', event.target);
+  if(event.target.tagName !== 'IMG'){
+    return;
+  }
 }
 
 
@@ -76,6 +79,8 @@ function handleChartResults(){
 }
 
 //add our event listeners for our button clicks  = 'click' events functions
+//html element. method (event looking for,  name of our() that handles the event)
+pizzaImageSectionTag.addEventListener('click', handleClickOnPizza);
 //call the constructor function to create out pizza objects
 //  PizzaPicture = function(pizzaName, imageSrc){
 new PizzaPicture('Papa Vito\'s Thin', 'images/mwDeluxePizzaThinCrust.jpg');
