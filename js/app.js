@@ -59,17 +59,21 @@ console.log('array? with pizza objects?',allPizzas);
 
  *  */
 function handleClickOnPizza(event){
-  
+ console.log('from hanlde image click', event);
 }
 
 
 //create a function handleResult list showing ul and li on the left side of the page
-
+function handleResultsList(){
+  console.log('proof from handle results list lis');
+}
 
 
 
 //Eventually add the chart here form canvas.js big concept not much to code.
-
+function handleChartResults(){
+  console.log('proof from handle chart results');
+}
 
 //add our event listeners for our button clicks  = 'click' events functions
 //call the constructor function to create out pizza objects
