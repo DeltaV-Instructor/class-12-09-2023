@@ -12,7 +12,7 @@ let pizzaImageSectionTag = document.getElementById('all_pizzas');
 // console.log(totalClicks, allPizzas, previouslyPickedPizza, pizzaImageSectionTag);
 let leftPizzaImage = document.getElementById('left_pizza_img');
 let rightPizzaImage = document.getElementById('right_pizza_img');
-console.log(leftPizzaImage, rightPizzaImage);
+// console.log(leftPizzaImage, rightPizzaImage);
 let leftPizzaOnThePage;
 let rightPizzaOnThePage;
 
@@ -37,7 +37,7 @@ const PizzaPicture = function(pizzaName, imageSrc){
 
 
 
-console.log('array? with pizza objects?',allPizzas);
+// console.log('array? with pizza objects?',allPizzas);
 
 
 
@@ -113,7 +113,7 @@ function handleClickOnPizza(event){
   console.log('previous',previouslyPickedPizzas);
 
   console.log('Tot clicks',totalClicks);
-  if(totalClicks === 5){
+  if(totalClicks === 25){
     pizzaImageSectionTag.removeEventListener('click', handleClickOnPizza);
   }
 }//closes our function
@@ -172,20 +172,33 @@ function makeAPizzaChart(){
   //use a for loop on our objects to pull our click info for the chart to display.
   //here is where our chart wi
   console.log('we made it to the chart function.');
+  // this info is currently in our allPizza array.
+  const pizzaNamesArray = [];
+  const pizzaClicksArray = [];
 
+  for(let i = 0; i < allPizzas.length; i++){
+    let singlePizzaName = allPizzas[i].pizzaName;
+    pizzaNamesArray.push(singlePizzaName);
+    console.log(pizzaNamesArray);
+  }
 
-
+  for(let i = 0; i < allPizzas.length; i++){
+    let singlePizzaClicks = allPizzas[i].clicks;
+    pizzaClicksArray.push(singlePizzaClicks);
+  }
 
   const ctx = document.getElementById('myChart');
 
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: pizzaNamesArray,
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
+        label: 'Pizza Clicks',
+        data: pizzaClicksArray,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(0, 99, 132)',
+        borderWidth: 4
       }]
     },
     options: {
