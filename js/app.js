@@ -109,6 +109,11 @@ function handleClickOnPizza(event){
   previouslyPickedPizzas.push(allPizzas[leftPizzaIndex]);
   previouslyPickedPizzas.push(allPizzas[rightPizzaIndex]);
   console.log('previous',previouslyPickedPizzas);
+
+  console.log('Tot clicks',totalClicks);
+  if(totalClicks === 5){
+    pizzaImageSectionTag.removeEventListener('click', handleClickOnPizza);
+  }
 }//closes our function
 
 
@@ -122,11 +127,15 @@ function handleResultsList(){
 //Eventually add the chart here form canvas.js big concept not much to code.
 function handleChartResults(){
   console.log('proof from handle chart results');
+  //going to call the createChart function/
+  //  makeAPizzaChart();
 }
 
 //add our event listeners for our button clicks  = 'click' events functions
 //html element. method (event looking for,  name of our() that handles the event)
 pizzaImageSectionTag.addEventListener('click', handleClickOnPizza);
+//add event listener for our button click
+//add event listener for our chartResults
 //call the constructor function to create out pizza objects
 //  PizzaPicture = function(pizzaName, imageSrc){
 new PizzaPicture('Papa Vito\'s Thin', 'images/mwDeluxePizzaThinCrust.jpg');
@@ -141,3 +150,11 @@ leftPizzaOnThePage = allPizzas[0];
 rightPizzaOnThePage = allPizzas[1];
 
 
+
+
+
+
+function makeAPizzaChart(){
+  //use a for loop on our objects to pull our click info for the chart to display.
+  //here is where our chart wi
+}
