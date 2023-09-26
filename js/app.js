@@ -6,13 +6,15 @@ let totalClicks = 0;
 //pizza objects will live in here and contain the click info.
 const allPizzas = [];
 //store the images we have seen
-let previouslyPickedPizza = [];
+let previouslyPickedPizzas = [];
 //grab some html elements
 let pizzaImageSectionTag = document.getElementById('all_pizzas');
 // console.log(totalClicks, allPizzas, previouslyPickedPizza, pizzaImageSectionTag);
 let leftPizzaImage = document.getElementById('left_pizza_img');
 let rightPizzaImage = document.getElementById('right_pizza_img');
 console.log(leftPizzaImage, rightPizzaImage);
+let leftPizzaOnThePage;
+let rightPizzaOnThePage;
 
 
 
@@ -46,9 +48,9 @@ console.log('array? with pizza objects?',allPizzas);
 
 /**
  * need to create a function to handle what happens when we click on the pizza
-  add a check to see if we are clicking on a image
-  add to our total clicks to finish rounds
-  update the pizza object information times shown... both images each time - views
+  X -add a check to see if we are clicking on a image
+  X -add to our total clicks to finish rounds
+  X -update the pizza object information times shown... both images each time - X X -views
   count what image was clicked  - clicks
   logic -
   display our random images we are going random number from our pizza objects array
@@ -59,11 +61,55 @@ console.log('array? with pizza objects?',allPizzas);
 
  *  */
 function handleClickOnPizza(event){
- console.log('from hanlde image click', event.target);
+  // console.log('from hanlde image click', event.target);
   if(event.target.tagName !== 'IMG'){
     return;
   }
-}
+  //counts up our total clicks
+  totalClicks++;
+  //times shown ~ add a new global to track the current image
+  leftPizzaOnThePage.timesShown++;
+  rightPizzaOnThePage.timesShown++;
+  console.log(totalClicks);
+  if(event.target.id === 'left_pizza_img'){
+    leftPizzaOnThePage.clicks++;
+  }
+  //counting the clicked on image and we only one of this ids per click
+  if(event.target.id === 'right_pizza_img'){
+    rightPizzaOnThePage.clicks++;
+  }
+  //handle viewing the previous images
+  const tempPickedPizzas = [];
+
+  let leftPizzaIndex;
+  do{
+    leftPizzaIndex = Math.floor(Math.random() * allPizzas.length);
+  } while(previouslyPickedPizzas.includes(allPizzas[leftPizzaIndex]) ||
+    tempPickedPizzas.includes(allPizzas[leftPizzaIndex]));
+  tempPickedPizzas.push(allPizzas[leftPizzaIndex]);
+
+  let rightPizzaIndex;
+  do{
+    rightPizzaIndex = Math.floor(Math.random() * allPizzas.length);
+  } while(previouslyPickedPizzas.includes(allPizzas[rightPizzaIndex]) ||
+    tempPickedPizzas.includes(allPizzas[rightPizzaIndex]));
+  tempPickedPizzas.push(allPizzas[rightPizzaIndex]);
+
+  leftPizzaOnThePage = allPizzas[leftPizzaIndex];
+  rightPizzaOnThePage = allPizzas[rightPizzaIndex];
+  console.log(leftPizzaOnThePage, rightPizzaOnThePage);
+  //now update on the page
+  //clickable new images being shown.
+  console.log(leftPizzaOnThePage.imageSrc, rightPizzaOnThePage.imageSrc);
+  leftPizzaImage.src = leftPizzaOnThePage.imageSrc;
+  rightPizzaImage.src = rightPizzaOnThePage.imageSrc;
+
+  //handle the previously picked pizzas
+  previouslyPickedPizzas = [];
+  previouslyPickedPizzas.push(allPizzas[leftPizzaIndex]);
+  previouslyPickedPizzas.push(allPizzas[rightPizzaIndex]);
+  console.log('previous',previouslyPickedPizzas);
+}//closes our function
 
 
 //create a function handleResult list showing ul and li on the left side of the page
@@ -91,6 +137,7 @@ new PizzaPicture('Chicago Pizza and Oven Grinder', 'images/cpoGinderPizza.jpg');
 new PizzaPicture('Detroit Style', 'images/detroitPizza.jpg');
 new PizzaPicture('New York Thin', 'images/newYorkPizza.jpg');
 new PizzaPicture('Shot Gun Dans', 'images/sgDansHtossedMeatLovPizza.jpg');
-
+leftPizzaOnThePage = allPizzas[0];
+rightPizzaOnThePage = allPizzas[1];
 
 
