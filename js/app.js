@@ -17,7 +17,7 @@ let leftPizzaOnThePage;
 let rightPizzaOnThePage;
 
 let resultsList = document.getElementById('resultsList');
-let chartRestults = document.getElementById('chartResults');
+let chartResults = document.getElementById('chartResults');
 
 
 
@@ -121,23 +121,34 @@ function handleClickOnPizza(event){
 
 //create a function handleResult list showing ul and li on the left side of the page
 function handleResultsList(){
-  console.log('proof from handle results list lis');
+  // console.log('proof from handle results list lis');
+  document.getElementById('pizza-clicks-list').style.background = '#8197c9';
+  document.getElementById('pizza-clicks-list').style.color = 'whitesmoke';
+  let ul = document.getElementById('pizza-clicks-list');
+  for(let i = 0; i < allPizzas.length; i++){
+    let currentPizza =  allPizzas[i];
+    let li = document.createElement('li');
+    li.textContent = currentPizza.pizzaName + ' got ' + currentPizza.clicks + ' votes';
+    // console.log('li: ',li);
+    ul.appendChild(li);
+  }
 }
 
 
 
 //Eventually add the chart here form canvas.js big concept not much to code.
 function handleChartResults(){
-  console.log('proof from handle chart results');
+  // console.log('proof from handle chart results');
   //going to call the createChart function/
-  //  makeAPizzaChart();
+  makeAPizzaChart();
 }
 
 //add our event listeners for our button clicks  = 'click' events functions
 //html element. method (event looking for,  name of our() that handles the event)
 pizzaImageSectionTag.addEventListener('click', handleClickOnPizza);
 //add event listener for our button click
-resultsList.addEventListener('click', )
+resultsList.addEventListener('click', handleResultsList);
+chartResults.addEventListener('click', handleChartResults);
 //add event listener for our chartResults
 //call the constructor function to create out pizza objects
 //  PizzaPicture = function(pizzaName, imageSrc){
@@ -160,4 +171,42 @@ rightPizzaOnThePage = allPizzas[1];
 function makeAPizzaChart(){
   //use a for loop on our objects to pull our click info for the chart to display.
   //here is where our chart wi
+  console.log('we made it to the chart function.');
+
+
+
+
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
