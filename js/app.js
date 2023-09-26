@@ -12,10 +12,12 @@ let pizzaImageSectionTag = document.getElementById('all_pizzas');
 // console.log(totalClicks, allPizzas, previouslyPickedPizza, pizzaImageSectionTag);
 let leftPizzaImage = document.getElementById('left_pizza_img');
 let rightPizzaImage = document.getElementById('right_pizza_img');
-console.log(leftPizzaImage, rightPizzaImage);
+// console.log(leftPizzaImage, rightPizzaImage);
 let leftPizzaOnThePage;
 let rightPizzaOnThePage;
 
+let resultsList = document.getElementById('resultsList');
+let chartResults = document.getElementById('chartResults');
 
 
 
@@ -35,7 +37,7 @@ const PizzaPicture = function(pizzaName, imageSrc){
 
 
 
-console.log('array? with pizza objects?',allPizzas);
+// console.log('array? with pizza objects?',allPizzas);
 
 
 
@@ -111,7 +113,7 @@ function handleClickOnPizza(event){
   console.log('previous',previouslyPickedPizzas);
 
   console.log('Tot clicks',totalClicks);
-  if(totalClicks === 5){
+  if(totalClicks === 25){
     pizzaImageSectionTag.removeEventListener('click', handleClickOnPizza);
   }
 }//closes our function
@@ -119,22 +121,34 @@ function handleClickOnPizza(event){
 
 //create a function handleResult list showing ul and li on the left side of the page
 function handleResultsList(){
-  console.log('proof from handle results list lis');
+  // console.log('proof from handle results list lis');
+  document.getElementById('pizza-clicks-list').style.background = '#8197c9';
+  document.getElementById('pizza-clicks-list').style.color = 'whitesmoke';
+  let ul = document.getElementById('pizza-clicks-list');
+  for(let i = 0; i < allPizzas.length; i++){
+    let currentPizza =  allPizzas[i];
+    let li = document.createElement('li');
+    li.textContent = currentPizza.pizzaName + ' got ' + currentPizza.clicks + ' votes';
+    // console.log('li: ',li);
+    ul.appendChild(li);
+  }
 }
 
 
 
 //Eventually add the chart here form canvas.js big concept not much to code.
 function handleChartResults(){
-  console.log('proof from handle chart results');
+  // console.log('proof from handle chart results');
   //going to call the createChart function/
-  //  makeAPizzaChart();
+  makeAPizzaChart();
 }
 
 //add our event listeners for our button clicks  = 'click' events functions
 //html element. method (event looking for,  name of our() that handles the event)
 pizzaImageSectionTag.addEventListener('click', handleClickOnPizza);
 //add event listener for our button click
+resultsList.addEventListener('click', handleResultsList);
+chartResults.addEventListener('click', handleChartResults);
 //add event listener for our chartResults
 //call the constructor function to create out pizza objects
 //  PizzaPicture = function(pizzaName, imageSrc){
@@ -157,4 +171,55 @@ rightPizzaOnThePage = allPizzas[1];
 function makeAPizzaChart(){
   //use a for loop on our objects to pull our click info for the chart to display.
   //here is where our chart wi
+  console.log('we made it to the chart function.');
+  // this info is currently in our allPizza array.
+  const pizzaNamesArray = [];
+  const pizzaClicksArray = [];
+
+  for(let i = 0; i < allPizzas.length; i++){
+    let singlePizzaName = allPizzas[i].pizzaName;
+    pizzaNamesArray.push(singlePizzaName);
+    console.log(pizzaNamesArray);
+  }
+
+  for(let i = 0; i < allPizzas.length; i++){
+    let singlePizzaClicks = allPizzas[i].clicks;
+    pizzaClicksArray.push(singlePizzaClicks);
+  }
+
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: pizzaNamesArray,
+      datasets: [{
+        label: 'Pizza Clicks',
+        data: pizzaClicksArray,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(0, 99, 132)',
+        borderWidth: 4
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
