@@ -12,13 +12,76 @@ let resultsList = document.getElementById('resultsList');
 let chartResults = document.getElementById('chartResults');
 
 //re-instantiate our POJO back into PizzaPicture objects
-const PizzaPicture = function(pizzaName, imageSrc){
+const PizzaPicture = function(pizzaName, imageSrc,clicks, timesShown){
   this.pizzaName = pizzaName;
   this.imageSrc = imageSrc;
-  this.clicks = 0;
-  this.timesShown = 0;
+  // this.clicks = 0;
+  if(clicks){
+    this.clicks = clicks;
+  } else {
+    this.clicks = 0;
+  }
+  // this.timesShown = 0;
+  if(timesShown){
+    this.timesShown = timesShown;
+  } else {
+    this.timesShown = 0;
+  }
   allPizzas.push(this);
 };
+
+//get our local storage
+let savedPizzaString = localStorage.getItem('savedPizzaVoteRound');
+console.log('LS =>pizzas? ', savedPizzaString);
+
+if(savedPizzaString){
+  //we need to parse to get back from being string => objects
+  let arrayOfNotPizzaObject = JSON.parse(savedPizzaString);
+  console.log(arrayOfNotPizzaObject);
+  //once they are POJO
+  // send them to our constructor function to update our objects totals(clicks, view)
+  for(let i = 0; i < arrayOfNotPizzaObject.length; i++){
+    new PizzaPicture(
+      arrayOfNotPizzaObject[i].pizzaName,
+      arrayOfNotPizzaObject[i].imageSrc,
+      arrayOfNotPizzaObject[i].clicks,
+      arrayOfNotPizzaObject[i].timesShown
+    );
+  }
+  console.log(allPizzas);
+} else {
+  new PizzaPicture('Papa Vito\'s Thin', 'images/mwDeluxePizzaThinCrust.jpg');
+  new PizzaPicture('Chicago Deep Dish', 'images/chicagoPizza.jpg');
+  new PizzaPicture('Brick Oven Pizza', 'images/brickOvenPizza.jpg');
+  new PizzaPicture('Calzone', 'images/calzonePizza.jpg');
+  new PizzaPicture('Chicago Pizza and Oven Grinder', 'images/cpoGinderPizza.jpg');
+  new PizzaPicture('Detroit Style', 'images/detroitPizza.jpg');
+  new PizzaPicture('New York Thin', 'images/newYorkPizza.jpg');
+  new PizzaPicture('Shot Gun Dans', 'images/sgDansHtossedMeatLovPizza.jpg');
+}
+
+leftPizzaOnThePage = allPizzas[0];
+rightPizzaOnThePage = allPizzas[1];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function handleClickOnPizza(event){
@@ -88,16 +151,7 @@ pizzaImageSectionTag.addEventListener('click', handleClickOnPizza);
 resultsList.addEventListener('click', handleResultsList);
 chartResults.addEventListener('click', handleChartResults);
 
-new PizzaPicture('Papa Vito\'s Thin', 'images/mwDeluxePizzaThinCrust.jpg');
-new PizzaPicture('Chicago Deep Dish', 'images/chicagoPizza.jpg');
-new PizzaPicture('Brick Oven Pizza', 'images/brickOvenPizza.jpg');
-new PizzaPicture('Calzone', 'images/calzonePizza.jpg');
-new PizzaPicture('Chicago Pizza and Oven Grinder', 'images/cpoGinderPizza.jpg');
-new PizzaPicture('Detroit Style', 'images/detroitPizza.jpg');
-new PizzaPicture('New York Thin', 'images/newYorkPizza.jpg');
-new PizzaPicture('Shot Gun Dans', 'images/sgDansHtossedMeatLovPizza.jpg');
-leftPizzaOnThePage = allPizzas[0];
-rightPizzaOnThePage = allPizzas[1];
+
 
 
 
